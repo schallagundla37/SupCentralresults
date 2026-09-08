@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.tablesorter.min.js"></script>
+<script src="js/Chart.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/cucumber.css" type="text/css"/>
+<link rel="stylesheet" href="css/font-awesome.min.css"/>
+<link rel="shortcut icon" href="images/favicon.png"/>
+
+<script>
+$(document).ready(function() {
+    // this will tell tablesorter to try looking for the data-value attribute
+    // if present, it'll sort by that instead
+    // otherwise, it'll sort by the text content of the table cell
+    $("#tablesorter").tablesorter({
+        textAttribute: 'data-value',
+        // ignores the first row of the header, the 'scenario', 'steps', since
+        // sorting those doesn't make sense
+        selectorHeaders: '> thead tr:not(.dont-sort) th',
+        // use a stable sort
+        sortStable: true
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<title>Cucumber Reports  - Features Overview</title>
+
+
+  <script>
+$(document).ready(function() {
+
+    var chartData = {
+        datasets: [{
+            data: [
+                384,
+                44,
+                197,
+                2,
+                1
+            ],
+            backgroundColor: [
+                "#00B000",
+                "#FF3030",
+                "#88AAFF",
+                "#F5F28F",
+                "#F5B975"
+            ]
+        }],
+        labels: [
+            "Passed",
+            "Failed",
+            "Skipped",
+            "Pending",
+            "Undefined"
+        ]
+    };
+
+    var context = document.getElementById("steps-chart");
+    window.myBar = new Chart(context, {
+        type: "doughnut",
+        data: chartData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: "Steps"
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var tooltipPercentage = Math.round(10000 * tooltipData / 628) / 100;
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
+                    }
+                }
+            }
+        }
+    });
+
+});$(document).ready(function() {
+
+    var chartData = {
+        datasets: [{
+            data: [
+                28,
+                47
+            ],
+            backgroundColor: [
+                "#00B000",
+                "#FF3030"
+            ]
+        }],
+        labels: [
+            "Passed",
+            "Failed"
+        ]
+    };
+
+    var context = document.getElementById("scenarios-chart");
+    window.myBar = new Chart(context, {
+        type: "doughnut",
+        data: chartData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: "Scenarios"
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var tooltipPercentage = Math.round(10000 * tooltipData / 75) / 100;
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
+                    }
+                }
+            }
+        }
+    });
+
+});$(document).ready(function() {
+
+    var chartData = {
+        datasets: [{
+            data: [
+                   0,
+                   8
+               ],
+               backgroundColor: [
+                "#00B000",
+                "#FF3030"
+            ]
+        }],
+        labels: [
+            "Passed",
+            "Failed"
+        ]
+    };
+
+    var context = document.getElementById("features-chart");
+    window.myBar = new Chart(context, {
+        type: "doughnut",
+        data: chartData,
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: "Features"
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var tooltipPercentage = Math.round(10000 * tooltipData / 8) / 100;
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
+                    }
+                }
+            }
+        }
+    });
+
+});  </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <p class="navbar-text navbar-left">Cucumber Report</p>
+      <ul class="nav navbar-nav navbar-right">
+        <li role="presentation"  class="active" ><a href="overview-features.html">Features</a></li>
+        <li role="presentation" ><a href="overview-tags.html">Tags</a></li>
+        <li role="presentation" ><a href="overview-steps.html">Steps</a></li>
+        <li role="presentation" ><a href="overview-failures.html">Failures</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="col-md-5 col-md-offset-1">
+
+<table class="table table-bordered" id="build-info">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>STARS</td>
+      <td>08 Sep 2026, 02:23</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+  <div class="col-md-3 col-md-offset-2">
+
+<table class="table table-bordered" id="classifications">
+  <tbody>
+      <tr class="info">
+        <th>Platform</th>
+        <td>Windows Server 2022</td>
+      </tr>
+      <tr class="info">
+        <th>Driver Type</th>
+        <td>Selenide</td>
+      </tr>
+      <tr class="info">
+        <th>Execution Node</th>
+        <td>Local</td>
+      </tr>
+      <tr class="info">
+        <th>Browser</th>
+        <td>Chrome</td>
+      </tr>
+      <tr class="info">
+        <th>Environment</th>
+        <td>QA</td>
+      </tr>
+      <tr class="info">
+        <th>Application URL</th>
+        <td>https://supervisory-central-nprd.crpappsvc.nsawsnprd.massmutual.com/</td>
+      </tr>
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+<div id="report-lead" class="container-fluid">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>Features Statistics</h2>
+      <p>The following graphs show passing and failing statistics for features</p>
+  </div>
+</div>
+
+
+  <div class="container-fluid" id="charts">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div id="featureChartCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#featureChartCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#featureChartCarousel" data-slide-to="1"></li>
+            <li data-target="#featureChartCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <canvas id="features-chart" height="120"></canvas>
+            </div>
+
+            <div class="item">
+              <canvas id="scenarios-chart" height="120"></canvas>
+            </div>
+
+            <div class="item">
+              <canvas id="steps-chart" height="120"></canvas>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#featureChartCarousel" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#featureChartCarousel" role="button" data-slide="next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+<table id="tablesorter" class="stats-table table-hover">
+
+<thead>
+  <tr class="header dont-sort">
+      <th colspan="2"></th>
+    <th colspan="6">Steps</th>
+    <th colspan="3">Scenarios</th>
+    <th colspan="2">Features</th>
+  </tr>
+  <tr>
+    <th>Feature</th>
+      <th>Qualifier</th>
+    <th class="passed">Passed</th>
+    <th class="failed">Failed</th>
+    <th class="skipped">Skipped</th>
+    <th class="pending">Pending</th>
+    <th class="undefined">Undefined</th>
+    <th class="total">Total</th>
+
+    <th class="passed">Passed</th>
+    <th class="failed">Failed</th>
+    <th class="total">Total</th>
+
+    <th>Duration</th>
+    <th>Status</th>
+  </tr>
+</thead>
+
+
+  <tbody>
+      <tr>
+        <td class="tagname"><a href="report-feature_1370084399.html">I want to use this template for regresssion test of Access Management module</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >43</td>
+        <td      class="failed"    >1</td>
+        <td     class="skipped"   >7</td>
+        <td >0</td>
+        <td >0</td>
+        <td class="total">51</td>
+
+        <td  class="passed"    >4</td>
+        <td  class="failed"    >1</td>
+        <td class="total">5</td>
+
+        <td class="duration" data-value="332813471900">5:32.813</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_1_1883750417.html">Check Register test cases</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >30</td>
+        <td      class="failed"    >8</td>
+        <td     class="skipped"   >28</td>
+        <td     class="pending"   >2</td>
+        <td >0</td>
+        <td class="total">68</td>
+
+        <td >0</td>
+        <td  class="failed"    >10</td>
+        <td class="total">10</td>
+
+        <td class="duration" data-value="724314591900">12:4.314</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_2_2019112238.html">Complete DO Inspection for a Registered/NonRegistered Type Location</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >27</td>
+        <td      class="failed"    >16</td>
+        <td     class="skipped"   >95</td>
+        <td >0</td>
+        <td >0</td>
+        <td class="total">138</td>
+
+        <td  class="passed"    >3</td>
+        <td  class="failed"    >16</td>
+        <td class="total">19</td>
+
+        <td class="duration" data-value="1304766484100">21:44.766</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_3_1817661520.html">I want to use this template for regression test of Delegation Module</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >80</td>
+        <td      class="failed"    >6</td>
+        <td     class="skipped"   >4</td>
+        <td >0</td>
+        <td   class="undefined" >1</td>
+        <td class="total">91</td>
+
+        <td  class="passed"    >9</td>
+        <td  class="failed"    >7</td>
+        <td class="total">16</td>
+
+        <td class="duration" data-value="604095072300">10:4.095</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_4_2674247061.html">Location Listing (Detached Offices) Page Validation</a></td>
+          <td>cucumber</td>
+
+        <td >0</td>
+        <td      class="failed"    >2</td>
+        <td     class="skipped"   >16</td>
+        <td >0</td>
+        <td >0</td>
+        <td class="total">18</td>
+
+        <td >0</td>
+        <td  class="failed"    >2</td>
+        <td class="total">2</td>
+
+        <td class="duration" data-value="25157400">0.025</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_5_1447746680.html">Complete PI for all contract type</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >122</td>
+        <td      class="failed"    >8</td>
+        <td     class="skipped"   >28</td>
+        <td >0</td>
+        <td >0</td>
+        <td class="total">158</td>
+
+        <td  class="passed"    >4</td>
+        <td  class="failed"    >8</td>
+        <td class="total">12</td>
+
+        <td class="duration" data-value="1224132456400">20:24.132</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_6_1561139773.html">Producer Profile Page - End to End Validation</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >35</td>
+        <td      class="failed"    >2</td>
+        <td     class="skipped"   >15</td>
+        <td >0</td>
+        <td >0</td>
+        <td class="total">52</td>
+
+        <td  class="passed"    >3</td>
+        <td  class="failed"    >2</td>
+        <td class="total">5</td>
+
+        <td class="duration" data-value="132112862200">2:12.112</td>
+        <td class="failed">Failed</td>
+      </tr>
+      <tr>
+        <td class="tagname"><a href="report-feature_7_1205473853.html">This is test the STM Plan testcases</a></td>
+          <td>cucumber</td>
+
+        <td      class="passed"    >47</td>
+        <td      class="failed"    >1</td>
+        <td     class="skipped"   >4</td>
+        <td >0</td>
+        <td >0</td>
+        <td class="total">52</td>
+
+        <td  class="passed"    >5</td>
+        <td  class="failed"    >1</td>
+        <td class="total">6</td>
+
+        <td class="duration" data-value="1750636537100">29:10.636</td>
+        <td class="failed">Failed</td>
+      </tr>
+  </tbody>
+
+  <tfoot class="total">
+    <tr>
+      <td></td>
+        <td></td>
+      <td>384</td>
+      <td>44</td>
+      <td>197</td>
+      <td>2</td>
+      <td>1</td>
+      <td>628</td>
+
+      <td>28</td>
+      <td>47</td>
+      <td>75</td>
+
+      <td class="duration">1:41:12.896</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td></td>
+        <td></td>
+      <td>61.15%</td>
+      <td>7.01%</td>
+      <td>31.37%</td>
+      <td>0.32%</td>
+      <td>0.16%</td>
+      <td></td>
+      <td>37.33%</td>
+      <td>62.67%</td>
+      <td></td>
+      <td></td>
+      <td>0.00%</td>
+    </tr>
+  </tfoot>
+</table>
+
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-default" id="footer">
+  <div class="container-fluid">
+    <p class="navbar-text navbar-right">
+        <small>generate Cucumber HTML reports via:&nbsp;</small>
+        <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Standalone</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-sandwich">Sandwich</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/maven-cucumber-reporting">Maven</a>
+        &nbsp;&nbsp;
+    </p>
+  </div>
+</nav>
+
+</body>
+</html>
